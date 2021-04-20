@@ -12,18 +12,20 @@ WORKDIR /home
 RUN apt-get update && \
     apt-get upgrade -y 
 
-RUN apt-get install -y --fix-missing zlibc zlib1g zlib1g-dev make gcc g++ wget libncurses5-dev libncursesw5-dev libbz2-dev liblzma-dev git libsafec-dev
+RUN apt-get install -y --fix-missing zlibc zlib1g zlib1g-dev make gcc g++ wget libncurses5-dev libncursesw5-dev libbz2-dev liblzma-dev git libsafec-dev libsafec-3.5-3 curl ca-certificates
 
 RUN apt-get update
 
 # Compile from source
-RUN git clone https://github.com/arun-sub/bwa-mem2.git ert
-WORKDIR /home/ert
+#RUN git clone https://github.com/arun-sub/bwa-mem2.git ert
+#WORKDIR /home/ert
 
-RUN make arch=avx2
+#RUN make -j2 arch=avx2
 
-ENV PATH /home/ert
-ENV LD_LIBRARY_PATH "/usr/local/lib:${LD_LIBRARY_PATH}"
+#ENV PATH /home/ert
+
+RUN curl --insecure -L https://github.com/bwa-mem2/bwa-mem2/releases/download/v2.2.1/bwa-mem2-2.2.1_x64-linux.tar.bz2 | tar jxf -
+ENV PATH /home/bwa-mem2-2.2.1_x64-linux
 
 RUN echo "export PATH=$PATH" > /etc/environment
 RUN echo "export LD_LIBRARY_PATH=$LD_LIBRARY_PATH" > /etc/environment
