@@ -21,9 +21,10 @@ RUN apt-get update
 
 #ENV PATH /home/ert
 
-RUN curl --insecure -L https://github.com/bwa-mem2/bwa-mem2/releases/download/v2.2.1/bwa-mem2-2.2.1_x64-linux.tar.bz2 | tar jxf -
+RUN curl --insecure -L https://github.com/bwa-mem2/bwa-mem2/releases/download/v2.2.1/bwa-mem2-2.2.1_x64-linux.tar.bz2 --output /home/bwa-mem2-2.2.1_x64-linux.tar.bz2
+RUN tar -xvjf /home/bwa-mem2-2.2.1_x64-linux.tar.bz2
 
-#ENV PATH /home/bwa-mem2-2.2.1_x64-linux:${PATH}
+ENV PATH /home/bwa-mem2-2.2.1_x64-linux:${PATH}
 ENV LD_LIBRARY_PATH "/usr/local/lib:${LD_LIBRARY_PATH}"
 RUN echo "export PATH=$PATH" > /etc/environment
 RUN echo "export LD_LIBRARY_PATH=$LD_LIBRARY_PATH" > /etc/environment
