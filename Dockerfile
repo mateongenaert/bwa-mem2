@@ -12,7 +12,7 @@ WORKDIR /home
 RUN apt-get update && \
     apt-get upgrade -y 
 
-RUN apt-get install -y --fix-missing zlibc zlib1g zlib1g-dev make gcc g++ wget libncurses5-dev libncursesw5-dev libbz2-dev liblzma-dev git
+RUN apt-get install -y --fix-missing zlibc zlib1g zlib1g-dev make gcc g++ wget libncurses5-dev libncursesw5-dev libbz2-dev liblzma-dev git libsafec-dev
 
 RUN apt-get update
 
@@ -20,7 +20,6 @@ RUN apt-get update
 RUN git clone https://github.com/arun-sub/bwa-mem2.git ert
 WORKDIR /home/ert
 
-RUN make clean
 RUN make arch=avx2
 
 ENV PATH /home/ert
