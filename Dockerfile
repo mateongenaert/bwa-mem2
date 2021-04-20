@@ -4,9 +4,6 @@ MAINTAINER mongenae@its.jnj.com
 ARG DEBIAN_FRONTEND=noninteractive
 ENV TZ=Europe/London
 
-ENV STAR_VERSION 2.7.8a
-ENV SAMTOOLS_VERSION 1.12
-
 WORKDIR /home
 
 RUN apt-get update && \
@@ -27,5 +24,6 @@ RUN apt-get update
 RUN curl --insecure -L https://github.com/bwa-mem2/bwa-mem2/releases/download/v2.2.1/bwa-mem2-2.2.1_x64-linux.tar.bz2 | tar jxf -
 ENV PATH /home/bwa-mem2-2.2.1_x64-linux
 
+ENV LD_LIBRARY_PATH "/usr/local/lib:${LD_LIBRARY_PATH}"
 RUN echo "export PATH=$PATH" > /etc/environment
 RUN echo "export LD_LIBRARY_PATH=$LD_LIBRARY_PATH" > /etc/environment
